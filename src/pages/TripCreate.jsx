@@ -9,6 +9,7 @@ const CreateTrip = () => {
   const [endDate, setEndDate] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const privateTrip = true;
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +27,7 @@ const CreateTrip = () => {
           location,
           startDate,
           endDate,
+          privateTrip,
         },
         { withCredentials: true }
       );

@@ -29,17 +29,21 @@ const UserTrips = () => {
     <div className="flex flex-col items-center">
       <h1 className="text-3xl font-bold my-5">Trips</h1>
       <div className="w-full max-w-4xl">
-        {user.map((trip) => (
-          <div
-            key={trip._id}
-            className="border p-4 mb-4 rounded flex justify-between w-full"
-          >
-            <p className="text-xl">{trip.title}</p>
-            <Link to={`/app/trips/${trip._id}`} className="text-blue-500">
-              View Trip Details
-            </Link>
-          </div>
-        ))}
+        {user.length == 0 ? (
+          <p>No Trips</p>
+        ) : (
+          user.map((trip) => (
+            <div
+              key={trip._id}
+              className="border p-4 mb-4 rounded flex justify-between w-full"
+            >
+              <p className="text-xl">{trip.title}</p>
+              <Link to={`/app/trips/${trip._id}`} className="text-blue-500">
+                View Trip Details
+              </Link>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

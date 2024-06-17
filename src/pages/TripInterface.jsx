@@ -10,6 +10,7 @@ const TripInterface = () => {
   const [updatedTrip, setUpdatedTrip] = useState(null);
   const [isDirty, setIsDirty] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const fetchTrip = async () => {
@@ -137,14 +138,27 @@ const TripInterface = () => {
   if (loading) {
     return <p>Loading trip data...</p>;
   }
+  const handleShareTrip = () => {
+    const shareableLink = `${window.location.origin}/app/trips/${tripid}`;
 
+    navigator.clipboard
+      .writeText(shareableLink)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => {
+          setCopied(false);
+        }, 3000); // Reset the copied state after 3 seconds
+      })
+      .catch((error) => {
+        console.error("Failed to copy shareable link:", error);
+      });
+  };
   return (
     <div>
       {trip ? (
         <div className="flex flex-col">
-          <div className="w-[100vw] flex text-[2rem] justify-center items-center py-5">
-            <div className="flex items-center justify-start w-[30%]">
-              <p className="text-[2rem]">Trip Name :</p>
+          <div className="w-[100vw] flex flex-col text-[2rem] justify-center items-center py-5">
+            <div className="flex items-center justify-center w-full pb-5">
               <input
                 type="text"
                 name="title"
@@ -152,39 +166,93 @@ const TripInterface = () => {
                 onChange={(e) =>
                   setUpdatedTrip({ ...updatedTrip, title: e.target.value })
                 }
-                className="w-[50%]"
+                className="w-[30%] text-center"
               />
             </div>
-            <div className="flex items-center justify-between mr-10">
+            <div className="flex items-center mr-10 justify-around w-full pb-5">
               <div className="flex items-center">
-                <p>Start Date:</p>
+                <p className="text-[1.3rem] font-semibold">Start Date:</p>
                 <input
                   type="date"
                   name="startDate"
                   value={updatedTrip.startDate.split("T")[0]}
                   onChange={handleChange}
+                  className="text-[1.4rem]"
                 />
               </div>
               <div className="flex items-center">
-                <p>End Date:</p>
+                <p className="text-[1.3rem] font-semibold">End Date:</p>
                 <input
                   type="date"
                   name="endDate"
                   value={updatedTrip.endDate.split("T")[0]}
                   onChange={handleChange}
+                  className="text-[1.4rem]"
                 />
               </div>
-              <p>Duration: {updatedTrip.duration} Days</p>
+              <div className="flex gap-5 items-center">
+                <p className="text-[1.3rem] font-semibold">Duration: </p>
+                <p className="text-[1.3rem]">{updatedTrip.duration} Days</p>
+              </div>
+
+              <div className="flex items-center gap-10">
+                <p className="pr-2 font-semibold text-[1.4rem]">
+                  Private Trip:
+                </p>
+                <div>
+                  <input
+                    type="radio"
+                    name="privateTrip"
+                    value={true}
+                    checked={updatedTrip.privateTrip === true}
+                    onChange={(e) =>
+                      setUpdatedTrip({
+                        ...updatedTrip,
+                        privateTrip: e.target.value === "true",
+                      })
+                    }
+                  />
+                  <label className="pl-2">Yes</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="privateTrip"
+                    value={false}
+                    checked={updatedTrip.privateTrip === false}
+                    onChange={(e) =>
+                      setUpdatedTrip({
+                        ...updatedTrip,
+                        privateTrip: e.target.value === "true",
+                      })
+                    }
+                  />
+                  <label className="pl-2">No</label>
+                </div>
+              </div>
             </div>
-            <button
-              onClick={handleUpdateTrip}
-              className="bg-green-400  hover:bg-green-500 p-4 rounded-xl"
-            >
-              Update Trip
-            </button>
+            <div className="flex gap-10">
+              <button
+                onClick={handleUpdateTrip}
+                className="bg-green-400  hover:bg-green-500 px-5 py-3 rounded-xl text-[1.5rem]"
+              >
+                Update Trip
+              </button>
+              <button
+                onClick={handleShareTrip}
+                className="bg-blue-400  hover:bg-blue-500 px-5 rounded-xl text-[1.5rem]"
+              >
+                {copied ? "Link Copied!" : "Share Trip"}
+              </button>
+              <button
+                onClick={handleLeavePage}
+                className="bg-red-500 px-5 rounded-xl text-[1.5rem]"
+              >
+                Leave Page
+              </button>
+            </div>
           </div>
           <div className="flex flex-col justify-center items-center gap-10">
-            <h2 className="text-[3rem]">Itinerary 🧳</h2>
             {updatedTrip.days.map((day, index) => (
               <div
                 key={index}
@@ -233,7 +301,7 @@ const TripInterface = () => {
                         className="w-full"
                       />
                     </div>
-                    <div className="gap-5 flex items-center pl-10">
+                    <div className="gap-2 flex items-center pl-10">
                       <label>Time Spent (Hrs)</label>
                       <input
                         type="text"
@@ -244,7 +312,7 @@ const TripInterface = () => {
                         className="w-[15%]"
                       />
                     </div>
-                    <div className="gap-5 flex items-center">
+                    <div className="gap-2 flex items-center">
                       <label className="text-[1.2rem]">Transport</label>
                       <input
                         type="text"
@@ -252,7 +320,7 @@ const TripInterface = () => {
                         value={travel.transport || ""}
                         onChange={(e) => handleChange(e, index, travelIndex)}
                         placeholder="Transport"
-                        className="w-[30%]"
+                        className="w-[50%]"
                       />
                     </div>
                     <button
@@ -279,12 +347,6 @@ const TripInterface = () => {
               Add Day
             </button>
           </div>
-          <button
-            onClick={handleLeavePage}
-            className="bg-red-500 p-4 rounded-xl"
-          >
-            Leave Page
-          </button>
         </div>
       ) : (
         <p>Loading trip data...</p>
