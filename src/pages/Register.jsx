@@ -2,17 +2,18 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import signupBg from '../assets/images/signup.jpg'
+import axiosInstance from './axiosConfig';
 const Register = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const handleRegister = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/register', {
-                username,
+            const response = await axiosInstance.post('http://localhost:3000/auth/register', {
+                email,
                 password,
             });
-            if (response.data.message === 'Registered successfully') {
+            if (response.data.message === 'User registered successfully') {
                 navigate('/login');
             }
         } catch (error) {
@@ -23,8 +24,11 @@ const Register = () => {
 
     return (
 
-        <div className='flex justify-center items-center w-full h-[100vh]'>
-            <div className='flex flex-col items-center gap-[2rem]'>
+        <div className='flex justify-center items-center w-full h-[100vh] bg-white'>
+         <img src = {signupBg}
+        className="h-[80vh] bg-cover bg-center mr-[5rem]"
+        />
+            <div className='flex flex-col items-center gap-[2rem] bg-white'>
                 <h2 className='text-[35px] font-semibold border-b-2 border-blue-500 px-5'>Sign Up</h2>
                 <div className='flex flex-col gap-5'>
                     <div className='flex gap-5'>
@@ -52,8 +56,8 @@ const Register = () => {
                             <input
                                 type="text"
                                 placeholder="Email"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 className=' py-4 pl-5 pr-[10rem] rounded-xl bg-gray-100 text-[20px]'
                             />
                         </div>
