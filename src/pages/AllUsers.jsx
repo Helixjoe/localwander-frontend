@@ -29,11 +29,14 @@ const AllUsers = () => {
       <h1 className="text-3xl font-bold my-5">All Users</h1>
       <div className="w-full max-w-4xl">
         {users.map((user) => (
-          <div key={user._id} className="border p-4 mb-4 rounded">
+          <div
+            key={user._id}
+            className="border p-4 mb-4 rounded flex justify-between w-full"
+          >
             <p className="text-xl">
-              {user.email} - Trips: {user.trips.length}
+              {user.email} - Trips Planned: {user.trips.length}
             </p>
-            <Link to={`/users/${user._id}/trips`} className="text-blue-500">
+            <Link to={`users/${user._id}`} className="text-blue-500">
               View Trips
             </Link>
           </div>

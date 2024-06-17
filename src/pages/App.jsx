@@ -90,7 +90,13 @@ const App = () => {
       <div className="flex width-[100vw] justify-center py-[2rem]">
         <p className="text-[2rem]">Welcome Back! Fellow Traveller 😎</p>
       </div>
-
+      <div className="w-full flex justify-center">
+        <Link to={`community`} className="text-blue-500">
+          <p className="text-[1.5rem] font-semibold underline underline-offset-4 pb-5">
+            Checkout other Local Wanderers 😁🙌
+          </p>
+        </Link>
+      </div>
       <div className="flex justify-center w-[100vw]">
         <div className="flex flex-col justify-center items-center">
           <p className="text-[3rem] font-semibold underline underline-offset-4 pb-5">
@@ -149,13 +155,6 @@ const App = () => {
             ))}
           </div>
         </div>
-      </div>
-      <div className="w-full flex justify-center">
-        <Link to={`community`} className="text-blue-500">
-          <p className="text-[3rem] font-semibold underline underline-offset-4 pb-5">
-            Checkout other Local Wanderers 😁🙌
-          </p>
-        </Link>
       </div>
     </div>
   );

@@ -7,6 +7,8 @@ import App from "./pages/App";
 import TripCreate from "./pages/TripCreate";
 import TripInterface from "./pages/TripInterface";
 import AllUsers from "./pages/AllUsers";
+import UserTrips from "./pages/UserTrips";
+import TripDetails from "./pages/UserSpecifcTrip";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
   {
     path: "/app/community",
     element: <AllUsers />,
+  },
+  {
+    path: "/app/community/users/:userId",
+    element: <UserTrips />,
+  },
+  {
+    path: "/app/trips/:tripId",
+    element: <TripDetails />,
   },
 ]);
 

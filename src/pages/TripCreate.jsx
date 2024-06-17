@@ -58,8 +58,8 @@ const CreateTrip = () => {
   };
 
   return (
-    <div className="w-[100vw] flex flex-col p-[2rem]">
-      <h2 className="text-[3rem] underline underline-offset-8 pb-5 flex items-center gap-2">
+    <div className="w-[100vw] flex flex-col p-[2rem] justify-center items-center">
+      <h2 className="text-[3rem] underline underline-offset-8 pb-10 flex items-center gap-2">
         New Trip <LuBaggageClaim />
       </h2>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">

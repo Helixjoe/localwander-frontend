@@ -27,12 +27,15 @@ const UserTrips = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-3xl font-bold my-5">{user.email}'s Trips</h1>
+      <h1 className="text-3xl font-bold my-5">Trips</h1>
       <div className="w-full max-w-4xl">
-        {user.trips.map((trip) => (
-          <div key={trip._id} className="border p-4 mb-4 rounded">
+        {user.map((trip) => (
+          <div
+            key={trip._id}
+            className="border p-4 mb-4 rounded flex justify-between w-full"
+          >
             <p className="text-xl">{trip.title}</p>
-            <Link to={`/trips/${trip._id}`} className="text-blue-500">
+            <Link to={`/app/trips/${trip._id}`} className="text-blue-500">
               View Trip Details
             </Link>
           </div>
