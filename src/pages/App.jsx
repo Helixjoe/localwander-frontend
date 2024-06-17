@@ -151,9 +151,11 @@ const App = () => {
         </div>
       </div>
       <div className="w-full flex justify-center">
-        <p className="text-[3rem] font-semibold underline underline-offset-4 pb-5">
-          Checkout other Local Wanderers 😁🙌
-        </p>
+        <Link to={`community`} className="text-blue-500">
+          <p className="text-[3rem] font-semibold underline underline-offset-4 pb-5">
+            Checkout other Local Wanderers 😁🙌
+          </p>
+        </Link>
       </div>
     </div>
   );

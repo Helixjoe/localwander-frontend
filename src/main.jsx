@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import App from "./pages/App";
 import TripCreate from "./pages/TripCreate";
 import TripInterface from "./pages/TripInterface";
+import AllUsers from "./pages/AllUsers";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/trip/:tripid",
     element: <TripInterface />,
+  },
+  {
+    path: "/app/community",
+    element: <AllUsers />,
   },
 ]);
 
