@@ -93,9 +93,15 @@ const App = () => {
 
       <div className="flex justify-center w-[100vw]">
         <div className="flex flex-col justify-center items-center">
-          <p className="text-[3rem] font-semibold underline underline-offset-4">
+          <p className="text-[3rem] font-semibold underline underline-offset-4 pb-5">
             Your Trips ✈️
           </p>
+          <button
+            className="bg-green-400 text-[1.5rem] font-bold py-[1rem] px-[2rem] rounded-xl hover:bg-green-500"
+            onClick={handleNewTripClick}
+          >
+            + New Trip
+          </button>
           <div className="flex flex-row flex-wrap gap-[2rem] py-10">
             {trips.map((trip) => (
               <div className="flex flex-row px-[3rem] py-[3rem] border border-black gap-10 rounded-xl">
@@ -126,6 +132,14 @@ const App = () => {
                       {trip.duration} Days{" "}
                     </p>
                   </p>
+                  <Link
+                    to={`/trip/${trip._id}`} // Navigate to the trip details page
+                    className="text-[2.5rem] font-semibold hover:underline underline-offset-8 cursor-pointer"
+                  >
+                    <button className="bg-green-400 text-[1.2rem] font-bold py-[0.8rem] px-[1rem] rounded-xl hover:bg-green-500">
+                      Edit Trip
+                    </button>
+                  </Link>
                 </div>
                 <ImCross
                   className="cursor-pointer"
@@ -134,14 +148,12 @@ const App = () => {
               </div>
             ))}
           </div>
-
-          <button
-            className="bg-green-400 text-[1.5rem] font-bold py-[1rem] px-[2rem] rounded-xl hover:bg-green-500"
-            onClick={handleNewTripClick}
-          >
-            + New Trip
-          </button>
         </div>
+      </div>
+      <div className="w-full flex justify-center">
+        <p className="text-[3rem] font-semibold underline underline-offset-4 pb-5">
+          Checkout other Local Wanderers 😁🙌
+        </p>
       </div>
     </div>
   );

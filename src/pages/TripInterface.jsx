@@ -178,7 +178,7 @@ const TripInterface = () => {
             </div>
             <button
               onClick={handleUpdateTrip}
-              className="bg-green-500 p-4 rounded-xl"
+              className="bg-green-400  hover:bg-green-500 p-4 rounded-xl"
             >
               Update Trip
             </button>
@@ -274,7 +274,7 @@ const TripInterface = () => {
             ))}
             <button
               onClick={handleAddDay}
-              className="bg-green-500 p-4 rounded-xl"
+              className="bg-green-400  hover:bg-green-500 p-4 rounded-xl"
             >
               Add Day
             </button>
