@@ -10,6 +10,7 @@ const TripInterface = () => {
   const [updatedTrip, setUpdatedTrip] = useState(null);
   const [isDirty, setIsDirty] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const TripInterface = () => {
         setLoading(false);
       } catch (error) {
         console.error("Error fetching trip:", error);
+        setError("Error fetching trip data. Please try again.");
       }
     };
 
@@ -99,19 +101,25 @@ const TripInterface = () => {
   };
 
   const handleUpdateTrip = async () => {
+    // Reset error state
+    setError("");
     try {
       await axiosInstance.put(`/trips/edit/${tripid}`, updatedTrip);
       navigate("/app");
     } catch (error) {
+      // Handle error
       console.error("Error updating trip:", error);
-      if (error.response && error.response.status === 400) {
-        const overlappingTrips = error.response.data.overlappingTrips;
-        const overlappingDetails = overlappingTrips
-          .map((trip) => `${trip.title}`)
-          .join("\n");
-        alert(`This trip is overlapping with \n${overlappingDetails}`);
+      if (error.response) {
+        if (error.response.status === 400) {
+          // If 400 error, display detailed error message
+          setError(error.response.data.error);
+        } else if (error.response.status === 404) {
+          setError("Trip not found.");
+        } else {
+          setError("Failed to update trip. Please try again.");
+        }
       } else {
-        alert("Failed to update trip. Please try again.");
+        setError("An unexpected error occurred. Please try again.");
       }
     }
   };
@@ -135,9 +143,6 @@ const TripInterface = () => {
     navigate("/app");
   };
 
-  if (loading) {
-    return <p>Loading trip data...</p>;
-  }
   const handleShareTrip = () => {
     const shareableLink = `${window.location.origin}/app/trips/${tripid}`;
 
@@ -153,6 +158,11 @@ const TripInterface = () => {
         console.error("Failed to copy shareable link:", error);
       });
   };
+
+  if (loading) {
+    return <p>Loading trip data...</p>;
+  }
+
   return (
     <div>
       {trip ? (
@@ -194,7 +204,10 @@ const TripInterface = () => {
                 <p className="text-[1.3rem] font-semibold">Duration: </p>
                 <p className="text-[1.3rem]">{updatedTrip.duration} Days</p>
               </div>
-
+              <div className="flex gap-5 items-center">
+                <p className="text-[1.4rem] font-semibold">Total Expense: </p>
+                <p className="text-[1.7rem] font-medium">₹{trip.expense}</p>
+              </div>
               <div className="flex items-center gap-10">
                 <p className="pr-2 font-semibold text-[1.4rem]">
                   Private Trip:
@@ -231,6 +244,14 @@ const TripInterface = () => {
                 </div>
               </div>
             </div>
+            {error && (
+              <p
+                style={{ color: "red" }}
+                className="pt-5 text-[1.5rem] font-medium pb-5"
+              >
+                {error}
+              </p>
+            )}
             <div className="flex gap-10">
               <button
                 onClick={handleUpdateTrip}
@@ -252,6 +273,7 @@ const TripInterface = () => {
               </button>
             </div>
           </div>
+
           <div className="flex flex-col justify-center items-center gap-10">
             {updatedTrip.days.map((day, index) => (
               <div

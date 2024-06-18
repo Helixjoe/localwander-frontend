@@ -97,6 +97,13 @@ const App = () => {
           </p>
         </Link>
       </div>
+      <div className="w-full flex justify-center">
+        <Link to={`trips/search`} className="text-blue-500">
+          <p className="text-[1.5rem] font-semibold underline underline-offset-4 pb-5">
+            Search for Trips 🔍
+          </p>
+        </Link>
+      </div>
       <div className="flex justify-center w-[100vw]">
         <div className="flex flex-col justify-center items-center">
           <p className="text-[3rem] font-semibold underline underline-offset-4 pb-5">
