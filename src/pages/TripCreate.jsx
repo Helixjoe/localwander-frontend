@@ -43,16 +43,18 @@ const CreateTrip = () => {
       setEndDate("");
     } catch (error) {
       // Handle error
-      console.error("Error creating trip:", error);
-      if (error.response && error.response.status === 400) {
-        // If 400 error, display overlapping trip details in the error message
-        const overlappingTrips = error.response.data.overlappingTrips;
-        const overlappingDetails = overlappingTrips
-          .map((trip) => `${trip.title}`)
-          .join("\n");
-        setError(`This trip is overlapping with \n${overlappingDetails}`);
+      console.error("Error updating trip:", error);
+      if (error.response) {
+        if (error.response.status === 400) {
+          // If 400 error, display detailed error message
+          setError(error.response.data.error);
+        } else if (error.response.status === 404) {
+          setError("Trip not found.");
+        } else {
+          setError("Failed to update trip. Please try again.");
+        }
       } else {
-        setError("Failed to create trip. Please try again.");
+        setError("An unexpected error occurred. Please try again.");
       }
     }
 

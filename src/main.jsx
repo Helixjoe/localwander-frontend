@@ -9,6 +9,7 @@ import TripInterface from "./pages/TripInterface";
 import AllUsers from "./pages/AllUsers";
 import UserTrips from "./pages/UserTrips";
 import TripDetails from "./pages/UserSpecifcTrip";
+import SearchTrips from "./pages/searchTrips";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/app/trips/:tripId",
     element: <TripDetails />,
+  },
+  {
+    path: "/app/trips/search",
+    element: <SearchTrips />,
   },
 ]);
 

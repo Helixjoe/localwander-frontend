@@ -10,6 +10,7 @@ const AllUsers = () => {
     const fetchUsers = async () => {
       try {
         const response = await axiosInstance.get("/users/all");
+        console.log(response.data);
         setUsers(response.data);
         setLoading(false);
       } catch (error) {
@@ -26,7 +27,7 @@ const AllUsers = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-3xl font-bold my-5">All Users</h1>
+      <h1 className="text-3xl font-bold my-5">Other Local Wanderers</h1>
       <div className="w-full max-w-4xl">
         {users.map((user) => (
           <div
