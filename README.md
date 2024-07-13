@@ -1,6 +1,6 @@
-# React + Vite App
+# LocalWander
 
-This project is a React application bootstrapped with Vite. Vite is a fast build tool that offers a better development experience with a faster build process.
+A trip planning application to store, edit and share trips with other users on the platform.
 
 ## Installation
 
