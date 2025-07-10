@@ -1,6 +1,7 @@
 # LocalWander
 
-A trip planning application to store, edit and share trips with other users on the platform.
+- A trip planning application to store, edit and share trips with other users on the platform.
+- Check out the backend [here](https://github.com/Helixjoe/localwander-backend)
 
 ## Installation
 
